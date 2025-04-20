@@ -15,7 +15,15 @@ buildscript {
 
     dependencies {
         for (def entrySet : ConfigUtils.getApplyPlugins().entrySet()) {
-            classpath entrySet.value.path
+            def depPath = entrySet.value.path
+            if (depPath instanceof String) {
+                println "Adding classpath dependency: ${depPath}"
+                classpath depPath
+            } else {
+                println "Warning: Dependency path is not a String: ${depPath}"
+                // 可以选择抛出错误或尝试转换
+                // classpath depPath.toString()
+            }
         }
     }
 }
@@ -34,7 +42,7 @@ allprojects {
 
     }
 
-    configurations.all {
+    configurations.configureEach {
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 
         resolutionStrategy.eachDependency {
@@ -46,6 +54,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
