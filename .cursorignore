@@ -1,2 +1,5 @@
-/.* 
+/.github
+/.gradle
+/.idea
+/.vscode
 plugin/api-gradle-plugin
