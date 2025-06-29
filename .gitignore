@@ -13,3 +13,7 @@ local.properties
 /mavenLocal
 /reports
 */reports
+*.class
+.cursorignore
+/plugin
+/.vscode
